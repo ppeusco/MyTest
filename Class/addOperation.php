@@ -1,5 +1,7 @@
 <?php
 include_once 'Class/Operation.php';
+include_once 'Class/RunTest.php';
+include_once 'Class/JsonScript.php';
 
 
 /*
@@ -13,9 +15,13 @@ include_once 'Class/Operation.php';
  *
  * @author ppeuscovich
  */
-class addOperation extends Operation {
+class addOperation extends Operation 
+{
+    
     public function execute($args)
     {
-        return ($args[0] + $args[1]);
+        echo "</br>"."Hola amigos...";
+        echo "</br>";      
+        //$script[$args[1]] = $args[2] + $args[3];
     }
 }

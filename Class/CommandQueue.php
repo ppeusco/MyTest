@@ -1,4 +1,6 @@
 <?php
+include_once 'Class/Operation.php';
+
 class CommandQueue
 {
     private $queue;
@@ -6,18 +8,22 @@ class CommandQueue
     public function __construct() {
         $this->queue = array();
     }
+    
+    public function showQueue()
+    {
+        print_r($this->queue). "</br>";
+    }
  
-    public function addCommand(Operation $command) {
-        $this->queue[] = $command;
+    public function addCommand(Operation $command,$params) {
+        $element = array();
+        $element['command'] = $command;
+        $element['params'] = $params;
+        $this->queue[] = $element;
     }
  
     public function process() {
-        $commandCount = 0;
-        foreach ($this->queue as $command) {
-            if ($command->execute()) {
-                $commandCount++;
-            }
+        foreach ($this->queue as $element) {  
+            $element['command']->execute($element['params']);
         }
-        return $commandCount;
     }
 }
