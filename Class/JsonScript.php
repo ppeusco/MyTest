@@ -9,12 +9,12 @@ include_once 'Class/CommandQueue.php';
  */
 class JsonScript {
 
-    private $script;
+    protected $script;
     protected  $commandQueue;
 
     public function __construct($json) {
         $this->script = json_decode($json, true);
-        $this->processScript();
+ 
     }
     
     public function getScript() 
@@ -78,7 +78,6 @@ class JsonScript {
                 $op1 = $this->getParamValue($command['operand1']);
                 $op2 = $this->getParamValue($command['operand2']);
                 $this->commandQueue->addCommand(OperationFactory::factory('add'), array($id,$op1,$op2));
-              
                 break;
         }
     }

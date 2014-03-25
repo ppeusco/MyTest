@@ -1,6 +1,5 @@
 <?php
 include_once 'Class/Operation.php';
-include_once 'Class/RunTest.php';
 include_once 'Class/JsonScript.php';
 
 
@@ -20,8 +19,10 @@ class addOperation extends Operation
     
     public function execute($args)
     {
+        
         echo "</br>"."Hola amigos...";
         echo "</br>";      
+       
         //$script[$args[1]] = $args[2] + $args[3];
     }
 }
