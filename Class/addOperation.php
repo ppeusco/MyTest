@@ -1,6 +1,9 @@
 <?php
 include_once 'Class/Operation.php';
 include_once 'Class/JsonScript.php';
+include_once 'Class/Script.php';
+
+
 
 
 /*
@@ -21,8 +24,9 @@ class addOperation extends Operation
     {
         
         echo "</br>"."Hola amigos...";
-        echo "</br>";      
-       
+        echo "</br>";   
+        print_r(Script::getScript());
+        echo "</br>"."Chau amigos...";
         //$script[$args[1]] = $args[2] + $args[3];
     }
 }

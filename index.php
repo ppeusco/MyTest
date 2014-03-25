@@ -1,9 +1,12 @@
 <?php
+
+use JsonScript;
+
 include_once 'Class/addOperation.php';
 include_once 'Class/printOperation.php';
 include_once 'Class/OperationFactory.php';
 include_once 'Class/CommandQueue.php';
-include_once 'Class/JsonScriptTest.php';
+
 
 function writeln($str) {
     echo $str . "</br>";
@@ -47,7 +50,6 @@ and open the template in the editor.
         echo "Procesando script...." . "</br>";
         $script = file_get_contents("http://localhost/MyTest/sampleScript.txt");
         $scriptObj = new JsonScript($script);
-        print_r($scriptObj->getScript());
         $scriptObj->processScript();
         ?>
     </body>

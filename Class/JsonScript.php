@@ -1,31 +1,25 @@
 <?php
 
 include_once 'Class/CommandQueue.php';
+include_once 'Class/Script.php';
+
 
 /**
  * Description of JsonScript
  *
  * @author pablo
  */
-class JsonScript {
+class JsonScript extends Script
+{
 
-    protected $script;
     protected  $commandQueue;
 
-    public function __construct($json) {
-        $this->script = json_decode($json, true);
- 
+    public function __construct($json) 
+    {
+        parent::__construct($json);
     }
     
-    public function getScript() 
-    {
-        return $this->script;
-    }
     
-    public function setScript($script)
-    {
-        $this->script = $script;
-    }
 
     public function processScript() {
         $this->commandQueue = new CommandQueue;
