@@ -16,21 +16,25 @@ class JsonScript extends Script
 
     public function __construct($json) 
     {
-        parent::__construct($json);
+        parent::init(json_decode($json, true));
+        print_r(parent::getScript());
     }
     
     
 
     public function processScript() {
         $this->commandQueue = new CommandQueue;
-        $this->parse($this->script['init']);
-        $this->commandQueue->process($this->script['init']);
+        $obj = parent::getScript();
+        $this->parse($obj['init']);
+
+        $this->commandQueue->process($obj['init']);
     }
 
     public function parse($block) {
         foreach ($block as $key => $value) {
             if ($this->isFunction($value['cmd'])) {
-                $this->parse($this->script[substr($value['cmd'], 1)]);
+                $obj = parent::getScript();
+                $this->parse($obj[substr($value['cmd'], 1)]);
             } else {
                 print_r($value);
                 $this->processCommand($value);
@@ -51,12 +55,14 @@ class JsonScript extends Script
         if (is_numeric($ref)) {
             return $ref;
         } else {
-            return $this->script[substr($ref, 1)];
+            $obj = parent::getScript();
+            return $obj[substr($ref, 1)];
         }
     }
     
     public function getParamId($ref) {
-        return $this->script[substr($ref, 1)];
+        $obj = parent::getScript();
+        return $obj[substr($ref, 1)];
     }
 
     public function processCommand($command) {

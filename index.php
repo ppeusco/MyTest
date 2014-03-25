@@ -1,11 +1,12 @@
 <?php
 
-use JsonScript;
+
 
 include_once 'Class/addOperation.php';
 include_once 'Class/printOperation.php';
 include_once 'Class/OperationFactory.php';
 include_once 'Class/CommandQueue.php';
+include_once 'Class/JsonScript.php';
 
 
 function writeln($str) {
@@ -51,6 +52,7 @@ and open the template in the editor.
         $script = file_get_contents("http://localhost/MyTest/sampleScript.txt");
         $scriptObj = new JsonScript($script);
         $scriptObj->processScript();
+        //print_r(Script::getScript());
         ?>
     </body>
 </html>

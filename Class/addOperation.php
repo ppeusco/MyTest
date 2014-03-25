@@ -22,10 +22,16 @@ class addOperation extends Operation
     
     public function execute($args)
     {
-        
         echo "</br>"."Hola amigos...";
         echo "</br>";   
+        $aux = Script::getScript();
+
+        $aux['pablo'] = 5201;
+        print_r($aux);
+        
+        Script::setScript($aux);
         print_r(Script::getScript());
+        
         echo "</br>"."Chau amigos...";
         //$script[$args[1]] = $args[2] + $args[3];
     }
