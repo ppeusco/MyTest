@@ -14,12 +14,9 @@ include_once 'Class/Script.php';
  *
  * @author ppeuscovich
  */
+class deleteOperation extends Operation {
 
-
-class printOperation extends Operation {
     public function execute($args) {
-        echo "Entro a print:  ".$args."</br>";
-        
-        //echo parent::getParamValue($args['value'];
+       // echo $args[0] . "</br>";
     }
 }

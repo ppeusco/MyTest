@@ -1,5 +1,4 @@
 <?php
-
 include_once 'Class/Operation.php';
 include_once 'Class/Script.php';
 
@@ -14,12 +13,10 @@ include_once 'Class/Script.php';
  *
  * @author ppeuscovich
  */
-
-
-class printOperation extends Operation {
+class createOperation extends Operation {
+    
     public function execute($args) {
-        echo "Entro a print:  ".$args."</br>";
-        
-        //echo parent::getParamValue($args['value'];
+       
+        //echo $args[0] . "</br>";
     }
 }

@@ -23,7 +23,10 @@ class CommandQueue
  
     public function process() {
         foreach ($this->queue as $element) {  
+          
             $element['command']->execute($element['params']);
+            
+            
         }
     }
 }

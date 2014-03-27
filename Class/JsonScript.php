@@ -2,6 +2,12 @@
 
 include_once 'Class/CommandQueue.php';
 include_once 'Class/Script.php';
+include_once 'Class/Stack.php';
+include_once 'printOperation.php';
+include_once 'addOperation.php';
+include_once 'createOperation.php';
+include_once 'deleteOperation.php';
+include_once 'updateOperation.php';
 
 
 /**
@@ -9,36 +15,44 @@ include_once 'Class/Script.php';
  *
  * @author pablo
  */
-class JsonScript extends Script
-{
+class JsonScript {
 
-    protected  $commandQueue;
+    protected $commandQueue;
+    protected $params;
+    protected $stack;
 
-    public function __construct($json) 
-    {
-        parent::init(json_decode($json, true));
-        print_r(parent::getScript());
+    public function __construct($json) {
+        Script::init(json_decode($json, true));
     }
-    
-    
 
     public function processScript() {
         $this->commandQueue = new CommandQueue;
-        $obj = parent::getScript();
+        $obj = Script::getScript();
+        $this->stack = new Stack;
         $this->parse($obj['init']);
-
-        $this->commandQueue->process($obj['init']);
+        $this->commandQueue->process();
     }
+    
+    
 
     public function parse($block) {
-        foreach ($block as $key => $value) {
-            if ($this->isFunction($value['cmd'])) {
-                $obj = parent::getScript();
-                $this->parse($obj[substr($value['cmd'], 1)]);
+        foreach ($block as $key => $command) {
+            if ($this->isFunction($command['cmd'])) {
+                $obj = Script::getScript();
+                $this->stack->push($command);
+                $this->parse($obj[substr($command['cmd'], 1)]);
             } else {
-                print_r($value);
-                $this->processCommand($value);
-                echo "</br>";
+                $params = $this->stack->peek();
+                if (!$this->isPrimitiveFunction($params['cmd'].'Operation')) 
+                {
+                    $vars = $this->changeParams($command, $params);
+                    $this->stack->pop();
+                } else {
+                    $vars = $command;
+                }
+                print_r($vars);
+                $this->commandQueue->addCommand(OperationFactory::factory($command['cmd']), $vars);
+                
             }
         }
     }
@@ -51,35 +65,16 @@ class JsonScript extends Script
         }
     }
 
-    public function getParamValue($ref) {
-        if (is_numeric($ref)) {
-            return $ref;
-        } else {
-            $obj = parent::getScript();
-            return $obj[substr($ref, 1)];
+    private function changeParams($command, $params) {
+        $result = array();
+        foreach ($command as $key => $value) {
+            $result[$key] = $params[substr($value, 1)];
         }
+        return $result;
     }
     
-    public function getParamId($ref) {
-        $obj = parent::getScript();
-        return $obj[substr($ref, 1)];
-    }
-
-    public function processCommand($command) {
-
-        switch ($command['cmd']) {
-
-            case 'print':
-                $op1 = $this->getParamValue($command['value']);
-                $this->commandQueue->addCommand(OperationFactory::factory('print'), array($op1));
-                break;
-            case 'add':
-                $id = $this->getParamId($command['id']);;
-                $op1 = $this->getParamValue($command['operand1']);
-                $op2 = $this->getParamValue($command['operand2']);
-                $this->commandQueue->addCommand(OperationFactory::factory('add'), array($id,$op1,$op2));
-                break;
-        }
+    private function isPrimitiveFunction($name) {
+        $result =  (class_exists($name)) ? true : false;
     }
 
 }
