@@ -16,6 +16,6 @@ include_once 'Class/Script.php';
  */
 class updateOperation extends Operation {
     public function execute($args) {
-        //echo $args[0] . "</br>";
+        Script::setValue($args[0]['id'], $args[0]['value']);
     }
 }

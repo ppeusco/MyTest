@@ -18,8 +18,6 @@ include_once 'Class/Script.php';
 
 class printOperation extends Operation {
     public function execute($args) {
-        echo "Entro a print:  ".$args."</br>";
-        
-        //echo parent::getParamValue($args['value'];
+        echo parent::getParamValue($args[0]['value'])."</br>";
     }
 }

@@ -14,9 +14,7 @@ include_once 'Class/Script.php';
  * @author ppeuscovich
  */
 class createOperation extends Operation {
-    
     public function execute($args) {
-       
-        //echo $args[0] . "</br>";
+       Script::setValue($args[0]['id'],$args[0]['value']);
     }
 }

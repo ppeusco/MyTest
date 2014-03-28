@@ -1,4 +1,5 @@
 <?php
+
 include_once 'Class/Operation.php';
 include_once 'Class/JsonScript.php';
 include_once 'Class/Script.php';
@@ -17,16 +18,27 @@ include_once 'Class/Script.php';
  *
  * @author ppeuscovich
  */
-class addOperation extends Operation 
-{
-    
-    public function execute($args)
-    {
-        //print_r($args);
-        $id = $args['id'];
-        $operand1 = parent::getParamValue($args['operand1']);
-        $operand2 = parent::getParamValue($args['operand2']);
+class addOperation extends Operation {
+
+    private function changeParams($command) {
+        $result = array();
+        foreach ($command[0] as $key => $value) {
+            if ($value[0] === '$') {
+                $result[$key] = $command[1][substr($value, 1)];
+            } else {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
+   
+    public function execute($args) {        
+        $command = $this->changeParams($args);
+        $id = $command['id'];
+        $operand1 = parent::getParamValue($command['operand1']);
+        $operand2 = parent::getParamValue($command['operand2']);
         Script::setValue($id, $operand1+ $operand2);
         //Script::printScript();
     }
+
 }

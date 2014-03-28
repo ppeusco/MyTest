@@ -15,8 +15,7 @@ include_once 'Class/Script.php';
  * @author ppeuscovich
  */
 class deleteOperation extends Operation {
-
     public function execute($args) {
-       // echo $args[0] . "</br>";
+        Script::deleteValue($args[0]['id']);
     }
 }

@@ -9,7 +9,6 @@ include_once 'createOperation.php';
 include_once 'deleteOperation.php';
 include_once 'updateOperation.php';
 
-
 /**
  * Description of JsonScript
  *
@@ -32,8 +31,6 @@ class JsonScript {
         $this->parse($obj['init']);
         $this->commandQueue->process();
     }
-    
-    
 
     public function parse($block) {
         foreach ($block as $key => $command) {
@@ -42,17 +39,11 @@ class JsonScript {
                 $this->stack->push($command);
                 $this->parse($obj[substr($command['cmd'], 1)]);
             } else {
-                $params = $this->stack->peek();
-                if (!$this->isPrimitiveFunction($params['cmd'].'Operation')) 
-                {
-                    $vars = $this->changeParams($command, $params);
-                    $this->stack->pop();
-                } else {
-                    $vars = $command;
-                }
-                print_r($vars);
-                $this->commandQueue->addCommand(OperationFactory::factory($command['cmd']), $vars);
-                
+                $params = $this->stack->peek(); 
+                $result[0] = $command;
+                $result[1] = $params;
+                $this->commandQueue->addCommand(OperationFactory::factory($command['cmd']), $result);
+                $this->stack->pop();
             }
         }
     }
@@ -63,18 +54,6 @@ class JsonScript {
         } else {
             return false;
         }
-    }
-
-    private function changeParams($command, $params) {
-        $result = array();
-        foreach ($command as $key => $value) {
-            $result[$key] = $params[substr($value, 1)];
-        }
-        return $result;
-    }
-    
-    private function isPrimitiveFunction($name) {
-        $result =  (class_exists($name)) ? true : false;
     }
 
 }

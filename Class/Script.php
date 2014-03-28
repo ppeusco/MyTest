@@ -24,11 +24,18 @@ class Script {
     }
     
     public function getValue($ref) {
-        return  self::$script[substr($ref, 1)];
+        $key = substr($ref, 1);
+        return isset(self::$script[$key]) ? self::$script[$key] : "Undefined";
     }
     
     public function setValue($var, $ref) {
         self::$script[$var] = $ref;
     }
+    
+    public function deleteValue($ref) {
+        unset(self::$script[$ref]);
+    }
+    
+    
 
 }
