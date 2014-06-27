@@ -1,6 +1,4 @@
 <?php
-include_once 'Class/Operation.php';
-include_once 'Class/Script.php';
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,6 +13,6 @@ include_once 'Class/Script.php';
  */
 class createOperation extends Operation {
     public function execute($args) {
-       Script::setValue($args[0]['id'],$args[0]['value']);
+       Script::setValue($args['id'],$args['value']);
     }
 }

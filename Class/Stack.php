@@ -1,6 +1,7 @@
 <?php
 
 class Stack {
+
     /**
      * @var Stack El objeto que contiene la Pila
      */
@@ -11,27 +12,40 @@ class Stack {
      *
      * @param void
      */
-    public function __construct(){
+    public function __construct() {
         $this->stack = array();
     }
+
     /**/
-    public function push($v){
+
+    public function push($v) {
         $this->stack[] = $v;
     }
+
     /**/
-    public function pop(){
+
+    public function pop() {
         return array_pop($this->stack);
     }
+
     /**/
-    public function isEmpty(){
+
+    public function isEmpty() {
         return empty($this->stack);
     }
+
     /**/
-    public function length(){
+
+    public function length() {
         return count($this->stack);
     }
+
     /**/
-    public function peek(){
-        return $this->stack[($this->length() - 1)];
+
+    public function peek() {
+        if (!$this->isEmpty()){
+            return $this->stack[($this->length() - 1)];
+        }       
     }
-}    
+
+}

@@ -1,0 +1,11 @@
+{
+  
+  "init": [
+    {"cmd" : "#setup" }
+  ],
+  
+  "setup": [
+    {"cmd":"#printOne", "value": "#int25"}
+  ]
+  
+}

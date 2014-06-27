@@ -1,9 +1,6 @@
 
 <?php
 
-include_once 'Class/Operation.php';
-
-
 class OperationFactory
 {
     // Método Factory parametrizado

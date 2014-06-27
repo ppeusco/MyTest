@@ -1,0 +1,20 @@
+{ 
+  "init": [
+    {"cmd" : "#setup" }
+  ],
+  
+  "setup": [
+    {"cmd":"print", "value": "#v1"},
+    {"cmd":"update", "id": "v2", "value":5},
+    {"cmd":"print", "value": "#v2"},
+    {"cmd":"print", "value": "#int1"},
+    {"cmd":"#sum", "id": "int1", "value1":"#v3", "value2":"#v4"},
+    {"cmd":"print", "value": "#int1"},
+
+  ],
+  
+  "sum": [
+      {"cmd":"add", "id": "$id", "operand1":"$value1", "operand2":"$value2"}
+  ]
+
+}

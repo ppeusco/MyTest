@@ -1,12 +1,5 @@
 <?php
 
-include_once 'Class/Script.php';
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of Operation
  *
@@ -25,12 +18,15 @@ abstract class Operation {
     }
 
     public function getParamValue($ref) {
-        
         if (is_numeric($ref)) {
             return $ref;
         } else {
             return Script::getValue($ref);
         }
+    }
+    
+    public function writeln($msg) {
+        echo $msg . "</br>";
     }
 
     abstract public function execute($args);

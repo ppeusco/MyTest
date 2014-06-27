@@ -1,0 +1,12 @@
+{
+  
+  "init": [
+    {"cmd" : "#setup" }
+  ],
+  
+  "setup": [
+    {"cmd":"create", "id": "v6", "value":"aaa"},
+    {"cmd":"#sum", "id": "v6", "value1":"#v4", "value2":"#v5"},
+    {"cmd":"print", "value": "#v6"}
+  ] 
+}
